@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkpic_go"]=self["webpackChunkpic_go"]||[]).push([[24],{9024:function(e,n,t){t.r(n),t.d(n,{default:function(){return c}});t(7658);var s=t(3396),i=t(1120);const u={style:{"text-align":"center","font-size":"24px"}};var r={__name:"404",setup(e){return(0,s.bv)((()=>{window.$message.warning("页面不存在，正在跳转首页..."),setTimeout((()=>{i.Z.push("/")}),3e3)})),(e,n)=>((0,s.wg)(),(0,s.iD)("div",u,"页面不存在"))}};const a=r;var c=a}}]);
+//# sourceMappingURL=24.cfd27350.js.map
