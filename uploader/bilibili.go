@@ -20,7 +20,11 @@ func (u *BliUploader) Upload(request *template.UploadRequest) *template.UploadRe
 	res, err := http.NewRestyClient().R().
 		SetResult(&bliRes).
 		SetFileReader("file_up", request.Filename, bytes.NewReader(request.FileBytes)).
-		SetFormData(map[string]string{"csrf": u.getCsrf()}).
+		SetFormData(map[string]string{
+			"csrf":     u.getCsrf(),
+			"biz":      "new_dyn",
+			"category": "daily",
+		}).
 		SetHeader("Cookie", setting.App.Config.BliCookie).
 		Execute("POST", "https://api.bilibili.com/x/dynamic/feed/draw/upload_bfs")
 	if err != nil {
