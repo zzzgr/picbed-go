@@ -19,14 +19,14 @@ func (u *BliUploader) Upload(request *template.UploadRequest) *template.UploadRe
 	var bliRes BliResponse
 	res, err := http.NewRestyClient().R().
 		SetResult(&bliRes).
-		SetFileReader("file_up", request.Filename, bytes.NewReader(request.FileBytes)).
+		SetFileReader("binary", request.Filename, bytes.NewReader(request.FileBytes)).
 		SetFormData(map[string]string{
 			"csrf":     u.getCsrf(),
 			"biz":      "new_dyn",
 			"category": "daily",
 		}).
 		SetHeader("Cookie", setting.App.Config.BliCookie).
-		Execute("POST", "https://api.bilibili.com/x/dynamic/feed/draw/upload_bfs")
+		Execute("POST", "https://api.bilibili.com/x/article/creative/article/upcover")
 	if err != nil {
 		panic(errors.New(err.Error()))
 	}
@@ -47,7 +47,7 @@ func (u *BliUploader) Upload(request *template.UploadRequest) *template.UploadRe
 	if bliRes.Code != 0 {
 		panic(errors.New(bliRes.Message))
 	}
-	return template.NewUploadResponse(bliRes.Data.ImgUrl, request.Filename, int64(len(request.FileBytes)))
+	return template.NewUploadResponse(bliRes.Data.Url, request.Filename, int64(len(request.FileBytes)))
 }
 
 func (u *BliUploader) getCsrf() string {
@@ -59,6 +59,6 @@ type BliResponse struct {
 	Code    int64  `json:"code"`
 	Message string `json:"message"`
 	Data    struct {
-		ImgUrl string `json:"image_url"`
+		Url string `json:"url"`
 	} `json:"data"`
 }
